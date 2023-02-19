@@ -1,0 +1,1 @@
+INSERT INTO user (name, age, accesslevel) values ('Nicklas', '15', 4);
