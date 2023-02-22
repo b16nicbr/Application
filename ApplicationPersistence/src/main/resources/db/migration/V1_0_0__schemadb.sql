@@ -5,7 +5,9 @@ create database if not exists applicationdb;
 use applicationdb;
 
 create table user(
-name varchar(32),
-age integer(4),
-accesslevel varchar(32)
+ID int NOT NULL,
+Name varchar(32),
+Age int,
+Accesslevel varchar(32),
+PRIMARY KEY (ID)
 );
