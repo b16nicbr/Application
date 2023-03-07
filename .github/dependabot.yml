@@ -7,7 +7,7 @@ version: 2
 updates:
 
   #maintain updates for spring-boot starter package
-  - package-ecosystem: "spring-boot-starter-parent" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "spring-boot-starter-parent"
+    directory: "/"
     schedule:
       interval: "weekly"
