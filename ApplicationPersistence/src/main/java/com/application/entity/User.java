@@ -1,10 +1,8 @@
 package com.application.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
 
 @Entity
 @Data
@@ -13,19 +11,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int ID;
-
+    @Column(name = "name")
     String name;
-
+    @Column(name = "age")
     Integer age;
-
+    @Column(name = "accesslevel")
     String accesslevel;
 
-    public User(int ID, String name, Integer age, String accesslevel){
-        this.ID = ID;
-        this.name = name;
-        this.age = age;
-        this.accesslevel = accesslevel;
-    }
-    public User(){}
 
 }
