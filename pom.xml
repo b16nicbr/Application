@@ -16,7 +16,7 @@
 	</parent>
 	<groupId>com.application</groupId>
 	<artifactId>Application</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>Application</name>
 	<description>application test</description>
 	<properties>

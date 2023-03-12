@@ -5,13 +5,13 @@
     <parent>
         <artifactId>Application</artifactId>
         <groupId>com.application</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
     </parent>
     <dependencies>
         <dependency>
             <groupId>com.application</groupId>
             <artifactId>ApplicationService</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.1.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
