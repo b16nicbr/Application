@@ -1,4 +1,4 @@
-package com.application;
+package com.applicationservices;
 
 public class Main {
     public static void main(String[] args) {

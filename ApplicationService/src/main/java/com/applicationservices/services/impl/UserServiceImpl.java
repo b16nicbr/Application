@@ -1,17 +1,15 @@
-package com.application.services.impl;
+package com.applicationservices.services.impl;
 
-import com.application.entity.User;
-import com.application.repositories.UserRepository;
-import com.application.services.UserService;
+import com.applicationpersistence.entity.User;
+import com.applicationpersistence.repositories.UserRepository;
+import com.applicationservices.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service("UserService")
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    @Autowired private UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;

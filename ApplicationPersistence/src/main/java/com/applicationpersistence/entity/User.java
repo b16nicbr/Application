@@ -1,8 +1,7 @@
-package com.application.entity;
+package com.applicationpersistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.relational.core.sql.In;
 
 @Entity
 @Data

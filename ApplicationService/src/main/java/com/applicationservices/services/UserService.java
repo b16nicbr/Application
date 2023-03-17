@@ -1,6 +1,6 @@
-package com.application.services;
+package com.applicationservices.services;
 
-import com.application.entity.User;
+import com.applicationpersistence.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component

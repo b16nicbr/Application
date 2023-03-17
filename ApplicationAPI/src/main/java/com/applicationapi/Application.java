@@ -1,7 +1,8 @@
-package Application;
+package com.applicationapi;
 
-import Application.controllers.UserController;
+import com.applicationapi.controllers.UserController;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,9 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication(exclude = {
 		org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
 		org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration.class}
-		)
-@ComponentScan(basePackages = "com.application.*", basePackageClasses = UserController.class)
-@EntityScan("com.application.*")
+		, scanBasePackages = {"controller", "services", "repositories", "entity", "model"})
 public class Application {
 
 	public static void main(String[] args) {
