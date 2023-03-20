@@ -25,7 +25,7 @@ public class UserController {
         return ResponseEntity.ok(new UserResponse(user.getId(), user.getName(), user.getAge(), user.getAccesslevel()));
     }
 
-    @PostMapping("/management/create-user/{name}")
+    @PostMapping("/management/create-user")
     public ResponseEntity<UserResponse> createUser(
             @RequestBody UserRequest userRequest){
         User user = userService.insert(new User(userRequest.id(),userRequest.name(), userRequest.age(), userRequest.accesslevel()));
