@@ -1,1 +1,1 @@
-INSERT INTO USER (id, name, age, accessLevel) values (1, 'Nicklas', 15, '4');
+INSERT INTO USER (id, name, password, age) values (1, 'Nicklas', 'admin','Moderator');

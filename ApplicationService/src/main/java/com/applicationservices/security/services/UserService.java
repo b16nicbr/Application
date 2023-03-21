@@ -1,4 +1,4 @@
-package com.applicationservices.services;
+package com.applicationservices.security.services;
 
 import com.applicationpersistence.entity.User;
 import org.springframework.stereotype.Component;

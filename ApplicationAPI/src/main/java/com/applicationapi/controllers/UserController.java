@@ -1,9 +1,8 @@
 package com.applicationapi.controllers;
 
-import com.applicationapi.controllers.models.UserRequest;
-import com.applicationapi.controllers.models.UserResponse;
-import com.applicationpersistence.entity.User;
-import com.applicationservices.services.impl.UserServiceImpl;
+import com.applicationapi.controllers.models.User;
+import com.applicationapi.payload.response.UserResponse;
+import com.applicationservices.security.services.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +18,21 @@ public class UserController {
 
     @GetMapping("/management/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable int id){
-        User user = userService.findById(id);
+        com.applicationpersistence.entity.User user = userService.findById(id);
 
         if(user == null){
-            log.warn("User :{} does not exist", user.getName());
+            log.warn("User :{} does not exist", user.getUsername());
             return ResponseEntity.notFound().build();
         }
-        log.info("Found user :{}", user.getName());
-        return ResponseEntity.ok(new UserResponse(user.getId(), user.getName(), user.getAge(), user.getAccesslevel()));
+        log.info("Found user :{}", user.getUsername());
+        return ResponseEntity.ok(new UserResponse(user.getUser_id(), user.getUsername(), user.getPassword(), user.getAge(), user.getRole()));
     }
 
     @PostMapping("/management/create-user")
     public ResponseEntity<UserResponse> createUser(
-            @RequestBody UserRequest userRequest){
-        User user = userService.insert(new User(userRequest.id(),userRequest.name(), userRequest.age(), userRequest.accesslevel()));
-
-        return ResponseEntity.ok(new UserResponse(user.getId(), user.getName(), user.getAge(), user.getAccesslevel()));
+            @RequestBody User userRequest){
+        com.applicationpersistence.entity.User user = userService.insert(new com.applicationpersistence.entity.User(userRequest.id(),userRequest.name(), userRequest.password(), userRequest.age(), userRequest.role()));
+        log.info("Created user: {}", user.getUsername());
+        return ResponseEntity.ok(new UserResponse(user.getUser_id(), user.getUsername(), user.getPassword(), user.getAge(), user.getRole()));
     }
 }

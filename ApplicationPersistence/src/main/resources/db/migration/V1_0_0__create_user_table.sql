@@ -1,7 +1,8 @@
 CREATE TABLE USER(
-id int NOT NULL,
-name varchar(32),
+user_id int NOT NULL,
+username varchar(32),
+password varchar(32),
 age int,
-accessLevel varchar(32),
-PRIMARY KEY (id)
+role varchar(32),
+PRIMARY KEY (user_id)
 );

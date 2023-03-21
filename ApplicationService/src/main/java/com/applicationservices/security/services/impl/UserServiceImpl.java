@@ -1,8 +1,8 @@
-package com.applicationservices.services.impl;
+package com.applicationservices.security.services.impl;
 
 import com.applicationpersistence.entity.User;
 import com.applicationpersistence.repositories.UserRepository;
-import com.applicationservices.services.UserService;
+import com.applicationservices.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     public User update(User user, int ID) {
         User userdb = userRepository.findById(ID).get();
 
-        userdb.setName(user.getName());
+        userdb.setUsername(user.getUsername());
         userdb.setAge(user.getAge());
         userdb.setAccesslevel(user.getAccesslevel());
 
