@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
         userdb.setUsername(user.getUsername());
         userdb.setAge(user.getAge());
-        userdb.setAccesslevel(user.getAccesslevel());
+        userdb.setRole(user.getRole());
 
 
         return userRepository.save(userdb);
