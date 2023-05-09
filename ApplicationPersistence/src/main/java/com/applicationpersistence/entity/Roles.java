@@ -4,23 +4,21 @@ import com.applicationpersistence.constants.RoleEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Set;
-
 @Entity
 @Data
-public class Role {
+public class Roles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int role_id;
+    private int id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private RoleEnum role;
+    @Column(name = "name")
+    private RoleEnum name;
 
-    public Role(int role_id, RoleEnum role){
-        this.role_id = role_id;
-        this.role = role;
+    public Roles(int id, RoleEnum name){
+        this.id = id;
+        this.name = name;
     }
-    public Role(){}
+    public Roles(){}
 }

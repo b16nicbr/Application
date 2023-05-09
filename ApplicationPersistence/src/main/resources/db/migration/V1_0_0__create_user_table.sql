@@ -1,8 +1,7 @@
 CREATE TABLE USER(
-user_id int NOT NULL,
+id int NOT NULL AUTO_INCREMENT,
 username varchar(32),
-password varchar(32),
+password varchar(100) UNIQUE,
 age int,
-role varchar(32),
-PRIMARY KEY (user_id)
+PRIMARY KEY (id)
 );

@@ -1,1 +1,0 @@
-INSERT INTO USER (id, name, password, age) VALUES (2, 'Elin', 'lol',24, 'user');

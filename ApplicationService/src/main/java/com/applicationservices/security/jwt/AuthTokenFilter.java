@@ -1,6 +1,6 @@
 package com.applicationservices.security.jwt;
 
-import com.applicationservices.security.services.UserDetails;
+import com.applicationservices.security.services.UserDetailsPrincipal;
 import com.applicationservices.security.services.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -34,9 +34,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-                UserDetails userDetails = (UserDetails) this.userDetailsService.loadUserByUsername(username);
+                UserDetailsPrincipal userDetailsPrincipal = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+                        userDetailsPrincipal, userDetailsPrincipal.getPassword(),userDetailsPrincipal.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);

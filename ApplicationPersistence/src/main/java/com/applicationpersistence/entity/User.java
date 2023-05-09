@@ -1,8 +1,8 @@
 package com.applicationpersistence.entity;
 
-import com.applicationpersistence.constants.RoleEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -10,12 +10,13 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int user_id;
-    @Column(name = "name")
+    private int id;
+    @Column(name = "username")
     private String username;
 
     @Column(name = "password")
@@ -23,21 +24,18 @@ public class User {
     private String password;
     @Column(name = "age")
     private Integer age;
-    @Column(name = "role")
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    Set<Role> role = new HashSet<>();
 
-    public User(int user_id, String username, String password, Integer age, Set<Role> role) {
-        this.user_id = user_id;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    Set<Roles> roles = new HashSet<>();
+
+    public User(){}
+
+    public User(String username, String password, Integer age) {
         this.username = username;
         this.password = password;
         this.age = age;
-        this.role = role;
     }
-
-    public User(){}
 }

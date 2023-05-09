@@ -1,14 +1,14 @@
 package com.applicationpersistence.repositories;
 
 import com.applicationpersistence.constants.RoleEnum;
-import com.applicationpersistence.entity.Role;
+import com.applicationpersistence.entity.Roles;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Roles, Long> {
 
-    Optional<Role> findByRole(RoleEnum role);
+    Optional<Roles> findByName(RoleEnum name);
 }

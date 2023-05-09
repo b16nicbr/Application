@@ -1,8 +1,10 @@
 package com.applicationpersistence.constants;
 
 public enum RoleEnum {
-    USER,
-    MODERATOR,
-    ADMIN
+    user("user"),
+    moderator("moderator"),
+    admin("admin");
 
+    RoleEnum(String moderator) {
+    }
 }

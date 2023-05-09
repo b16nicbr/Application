@@ -1,9 +1,8 @@
 package com.applicationservices.security.services.impl;
 
 import com.applicationpersistence.entity.User;
-import com.applicationservices.security.services.UserDetails;
+import com.applicationservices.security.services.UserDetailsPrincipal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsPrincipalImpl implements UserDetailsPrincipal {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,23 +26,23 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    public UserDetailsImpl(int user_id, String username, String password, Integer age,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsPrincipalImpl(int user_id, String username, String password, Integer age,
+                                    Collection<? extends GrantedAuthority> authorities) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.age = age;
         this.authorities = authorities;
     }
-    public UserDetailsImpl(){}
+    public UserDetailsPrincipalImpl(){}
 
-    public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRole().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getRole().name()))
+    public static UserDetailsPrincipalImpl build(User user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
-        return new UserDetailsImpl(
-                user.getUser_id(),
+        return new UserDetailsPrincipalImpl(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getAge(),
@@ -55,7 +54,7 @@ public class UserDetailsImpl implements UserDetails {
         return authorities;
     }
 
-    public int getId() {
+    public int getUser_id() {
         return user_id;
     }
 
@@ -99,7 +98,7 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
+        UserDetailsPrincipalImpl user = (UserDetailsPrincipalImpl) o;
         return Objects.equals(user_id, user.user_id);
     }
 }

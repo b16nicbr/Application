@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
         userdb.setUsername(user.getUsername());
         userdb.setAge(user.getAge());
-        userdb.setRole(user.getRole());
+        userdb.setRoles(user.getRoles());
 
 
         return userRepository.save(userdb);
@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
     public User findById(int ID) {
         User one = userRepository.findById(ID).get();
         return one;
+    }
+    @Override
+    public User findByUsername(String username){
+        User user = userRepository.findByUsername(username);
+        return user;
     }
 }
