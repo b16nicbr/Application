@@ -1,1 +1,1 @@
-INSERT INTO ROLES (name) VALUES ('moderator'), ('user'), ('admin');
+INSERT INTO ROLES (name) VALUES ('ROLE_moderator'), ('ROLE_user'), ('ROLE_admin');
