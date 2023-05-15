@@ -20,18 +20,18 @@ public class Book {
     @Column(name = "name")
     @Size(max = 50)
     String name;
-    @Column(name = "author_name")
+    @Column(name = "author")
     @Size(min = 3, max = 50)
-    String authorName;
+    String author;
     @Column(name = "price")
     double price;
     @Column(name = "note")
     @Size(max = 256)
     String note;
 
-    public Book(String name, String authorName, double price, String note){
+    public Book(String name, String author, double price, String note){
         this.name = name;
-        this.authorName = authorName;
+        this.author = author;
         this.price = price;
         this.note = note;
     }

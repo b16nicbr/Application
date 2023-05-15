@@ -28,12 +28,12 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         log.info("added new book in table");
-        bookService.insert(new com.applicationpersistence.entity.Book(bookRequest.name(), bookRequest.authorName(), bookRequest.price(), bookRequest.note()));
+        bookService.insert(new com.applicationpersistence.entity.Book(bookRequest.name(), bookRequest.author(), bookRequest.price(), bookRequest.note()));
         return ResponseEntity.ok(bookRequest);
 
     }
     @GetMapping(path = "/books/book/{name}")
-    @PreAuthorize("hasRole('moderator') or hasRole('admin') or hasRole('user')")
+    @PreAuthorize("hasRole('moderator') or hasRole('user') or hasRole('admin')")
     public ResponseEntity<Book> getBook(
             @PathVariable(value = "name") String name){
         com.applicationpersistence.entity.Book book = bookService.findBookByName(name);
@@ -41,20 +41,20 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         log.info("found book");
-        return ResponseEntity.ok(new Book(book.getName(), book.getAuthorName(), book.getPrice(), book.getNote()));
+        return ResponseEntity.ok(new Book(book.getName(), book.getAuthor(), book.getPrice(), book.getNote()));
 
     }
 
-    @GetMapping(path = "/books/by-author/{name}")
-    @PreAuthorize("hasRole('moderator') or hasRole('admin') or hasRole('user')")
-    public ResponseEntity<List<com.applicationpersistence.entity.Book>> getBooksByAuthor(
-            @PathVariable(value = "name") String author_name){
-        List<com.applicationpersistence.entity.Book> book = bookService.findBooksByAuthorName(author_name);
+    @GetMapping(path = "/books/author/{author}")
+    @PreAuthorize("hasRole('moderator') or hasRole('user') or hasRole('admin')")
+    public ResponseEntity<List<Book>> getBooksByAuthor(
+            @PathVariable(value = "author") String author){
+        List<com.applicationpersistence.entity.Book> book = bookService.findBooksByAuthor(author);
         if(book == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         log.info("found books by author");
-        return ResponseEntity.ok(book);
+        return ResponseEntity.ok(book.stream().map(book1 -> new Book(book1.getName(), book1.getAuthor(), book1.getPrice(), book1.getNote())).toList());
 
     }
 }
