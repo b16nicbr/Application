@@ -2,6 +2,7 @@ package com.applicationapi.controllers;
 
 import com.applicationapi.controllers.models.User;
 import com.applicationservices.security.services.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/it-systems")
 @Slf4j
+@Tag(name = "User", description = "User APIs for adding and retrieving users in bookstore")
 public class UserController {
 
     @Autowired UserServiceImpl userService;

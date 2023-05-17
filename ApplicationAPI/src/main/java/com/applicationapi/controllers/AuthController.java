@@ -10,6 +10,7 @@ import com.applicationpersistence.repositories.RoleRepository;
 import com.applicationpersistence.repositories.UserRepository;
 import com.applicationservices.security.jwt.JwtUtils;
 import com.applicationservices.security.services.impl.UserServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.util.Set;
 @RestController
 @RequestMapping(path = "/auth")
 @Slf4j
+@Tag(name = "Authorization", description = "The auhtorization APIs for Bookstore")
 public class AuthController {
 
     @Autowired
