@@ -2,8 +2,10 @@ package com.applicationservices.security.jwt;
 
 import com.applicationservices.security.services.impl.UserDetailsPrincipalImpl;
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -18,20 +20,40 @@ public class JwtUtils {
     private String jwtsecret;
     @Value("${jwt.expirationDateInMs}")
     private int jwtExpirationInMs;
-
+    @Value("${jwt.refreshExpirationDateInMs}")
+    private int jwtRefreshTokenInMs;
+    @Autowired
+    UserDetailsPrincipalImpl userDetailsPrincipal;
     public String generateJwtToken(Authentication authentication){
         UserDetailsPrincipalImpl userPrincipal = (UserDetailsPrincipalImpl) authentication.getPrincipal();
 
-        return Jwts.builder()
+        String jwtToken =  Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationInMs))
                 .signWith(SignatureAlgorithm.HS512, jwtsecret)
                 .compact();
+        logger.info("Token successfully generated: {}",jwtToken );
+        return jwtToken;
     }
-    public boolean validateJwtToken(String jwt) {
+
+    public String refreshJwtToken(HttpServletRequest httpServletRequest, String token){
+
+        if(httpServletRequest.getHeader("RefreshToken") == null) {
+            String refeshedToken = Jwts.builder()
+                    .setSubject(userDetailsPrincipal.getUsername())
+                    .setIssuedAt(new Date())
+                    .setExpiration(new Date(new Date().getTime() + jwtRefreshTokenInMs))
+                    .signWith(SignatureAlgorithm.HS512, jwtsecret)
+                    .compact();
+            logger.info("refreshed Token successfully generated: {}", refeshedToken);
+            return refeshedToken;
+        }
+        return "";
+    }
+    public boolean validateJwtToken(String jwt, String refreshToken,Boolean isRefreshToken) {
         try {
-            Jwts.parser().setSigningKey(jwtsecret).parseClaimsJws(jwt);
+            Jwts.parser().setSigningKey(jwtsecret).parseClaimsJws(isRefreshToken ? refreshToken : jwt);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());

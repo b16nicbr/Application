@@ -24,15 +24,14 @@ public class UserController {
         com.applicationpersistence.entity.User user = userService.findByUsername(username);
 
         if(user == null){
-            log.warn("User :{} does not exist", user.getUsername());
+            log.warn("User :{} does not exist", username);
             return ResponseEntity.notFound().build();
         }
         log.info("Found user :{}", user.getUsername());
         return ResponseEntity.ok(new User(user.getId(), user.getUsername(), user.getPassword(), user.getAge(), user.getRoles()));
     }
 
-    @PostMapping("/management/create-user")
-    @PreAuthorize("hasRole('moderator') or hasRole('admin')")
+    @PostMapping("/management/create-user") @PreAuthorize("hasRole('moderator') or hasRole('admin')")
     public ResponseEntity<User> createUser(
             @RequestBody User userRequest){
         com.applicationpersistence.entity.User user = userService.insert(new com.applicationpersistence.entity.User(userRequest.id(),userRequest.name(), userRequest.password(), userRequest.age(), userRequest.role()));
